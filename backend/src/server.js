@@ -25,7 +25,7 @@ async function start() {
 
   const server = http.createServer(createApp());
   initSockets(server);
-  server.listen(config.port, () => logger.info(`ARAN API listening on :${config.port}`));
+  server.listen(config.port, '0.0.0.0', () => logger.info(`ARAN API listening on :${config.port}`));
 
   // Release stock for unpaid online orders
   const timer = setInterval(() => orderSvc.expireUnpaid(config.paymentTimeoutMinutes).catch((e) => logger.error('expire job', { e: e.message })), 60000);

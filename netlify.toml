@@ -1,0 +1,24 @@
+# Netlify (free). Proxies /api and /socket.io to the API so the browser only ever talks to ONE origin:
+# no CORS problems and the login cookie stays first-party (works in Safari / incognito too).
+# >>> Replace YOUR-API.onrender.com below with your Render service address (3 places). <<<
+[build]
+  base = "frontend"
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://YOUR-API.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/socket.io/*"
+  to = "https://YOUR-API.onrender.com/socket.io/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

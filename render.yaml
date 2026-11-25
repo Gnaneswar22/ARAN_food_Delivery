@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: aran-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/server.js
+    healthCheckPath: /api/v1/health
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: MONGODB_URI, sync: false }
+      - { key: JWT_ACCESS_SECRET, generateValue: true }
+      - { key: JWT_REFRESH_SECRET, generateValue: true }
+      - { key: SETTINGS_ENCRYPTION_KEY, generateValue: true }
+      - { key: CLIENT_ORIGINS, sync: false }
+      - { key: CLIENT_URL, sync: false }
+      - { key: SEED_OWNER_EMAIL, sync: false }
+      - { key: SEED_OWNER_PASSWORD, sync: false }
+      - { key: CLOUDINARY_CLOUD_NAME, sync: false }
+      - { key: CLOUDINARY_API_KEY, sync: false }
+      - { key: CLOUDINARY_API_SECRET, sync: false }
